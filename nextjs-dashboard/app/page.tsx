@@ -4,6 +4,7 @@ import Link from 'next/link';
 import styles from '@/app/ui/home.module.css';
 import { lusitana } from '@/app/ui/fonts';
 import Image from 'next/image';
+import { sql } from "@vercel/postgres";
 export default function Page() {
   return (
     <main className="flex min-h-screen flex-col p-6">
@@ -47,5 +48,23 @@ export default function Page() {
         </div>
       </div>
     </main>
+  );
+}
+
+export async function Cart({
+  params
+} : {
+  params: { user: string }
+}): Promise<JSX.Element> {
+  const { rows } = await sql`SELECT * from CARTS where user_id=${params.user}`;
+
+  return (
+    <div>
+      {rows.map((row) => (
+        <div key={row.id}>
+          {row.id} - {row.quantity}
+        </div>
+      ))}
+    </div>
   );
 }
