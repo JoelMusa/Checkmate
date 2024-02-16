@@ -1,2 +1,2 @@
 # Checkmate
-Chess game on a html page coded with JavaScript etc.
+Chess game under development
